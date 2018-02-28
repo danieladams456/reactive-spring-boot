@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class ResponseDTO {
+public class SampleResponseDTO {
 	String status;
 	String message;
 }

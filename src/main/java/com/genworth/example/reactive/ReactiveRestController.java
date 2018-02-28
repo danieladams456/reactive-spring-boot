@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ReactiveRestController {
 	
-	@GetMapping
+	@GetMapping("/sync")
 	public ResponseDTO test() {
 		return ResponseDTO.builder()
 				.status("ok")

@@ -13,8 +13,13 @@ public class ReactiveServiceImpl implements ReactiveService {
 	}
 	
 	@Override
-	public Mono<TraefikHealthResponseDTO> asyncWeb() {
+	public Mono<SampleResponseDTO> asyncWeb() {
 		return traefikWebClient.get().uri("/health")
-				.retrieve().bodyToMono(TraefikHealthResponseDTO.class);
+				.retrieve().bodyToMono(TraefikHealthResponseDTO.class)
+				.map(this::toApiResponse);
+	}
+	
+	private SampleResponseDTO toApiResponse(TraefikHealthResponseDTO res) {
+		return SampleResponseDTO.builder().status("ok").message(res.average_response_time).build();
 	}
 }

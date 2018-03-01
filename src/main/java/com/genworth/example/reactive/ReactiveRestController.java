@@ -31,9 +31,6 @@ public class ReactiveRestController {
 	
 	@GetMapping("web/async")
 	public Mono<SampleResponseDTO> webAsync() {
-		return this.reactiveService.asyncWeb()
-				.map((res) -> SampleResponseDTO.builder()
-						.status("ok").message(res.average_response_time)
-						.build());
+		return this.reactiveService.asyncWeb();
 	}
 }

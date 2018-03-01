@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 @Builder
 public class SampleResponseDTO {
-	String status;
+	String status = "ok";
 	String message;
 }

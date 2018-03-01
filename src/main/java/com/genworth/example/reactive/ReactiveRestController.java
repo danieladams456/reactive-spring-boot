@@ -8,6 +8,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import reactor.core.publisher.Mono;
 
+/**
+ * Demo requirements:
+ * docker run -d -p 8081:80 emilevauge/whoami
+ * docker run -d -p 8082:8080 traefik --api
+ */
+
 @CrossOrigin
 @RestController
 public class ReactiveRestController {

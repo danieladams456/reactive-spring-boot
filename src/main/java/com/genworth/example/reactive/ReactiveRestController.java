@@ -14,6 +14,7 @@ public class ReactiveRestController {
 	@Autowired
 	private ReactiveService reactiveService;
 	
+	// static responses
 	@GetMapping("static/sync")
 	public SampleResponseDTO staticSync() {
 		return SampleResponseDTO.builder()
@@ -29,6 +30,7 @@ public class ReactiveRestController {
 				.build());
 	}
 
+	// single web request
 	@GetMapping("web/async")
 	public Mono<SampleResponseDTO> webAsync() {
 		return this.reactiveService.webAsync();
@@ -37,8 +39,14 @@ public class ReactiveRestController {
 	public Mono<SampleResponseDTO> webAsync2(@PathVariable("path") String path) {
 		return this.reactiveService.webAsync2(path);
 	}
+	
+	// two web requests together
 	@GetMapping("web/async/sequential")
 	public Mono<SampleResponseDTO> webAsyncSequential() {
 		return this.reactiveService.webAsyncSequential();
+	}
+	@GetMapping("web/async/parallel/{path}")
+	public Mono<SampleResponseDTO> webAsyncParallel(@PathVariable("path") String path) {
+		return this.reactiveService.webAsyncParallel(path);
 	}
 }

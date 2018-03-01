@@ -1,7 +1,5 @@
 package com.genworth.example.reactive;
 
-import java.net.URI;
-
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -38,6 +36,10 @@ public class ReactiveServiceImpl implements ReactiveService {
 				.map(body -> SampleResponseDTO.builder().status("ok").message(body).build());
 	}
 	
-	
-	
+	public Mono<SampleResponseDTO> webAsyncParallel(String path) {
+		return Mono.zip(webAsync(), webAsync2(path))
+				.map(tuple -> SampleResponseDTO.builder().status("ok")
+						.message(tuple.getT1().message).messageTwo(tuple.getT2().message)
+						.build());
+	}
 }

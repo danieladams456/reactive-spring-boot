@@ -18,7 +18,7 @@ public class ReactiveServiceImpl implements ReactiveService {
 	public Mono<SampleResponseDTO> webAsync() {
 		return traefikWebClient.get().uri("/health")
 				.retrieve().bodyToMono(TraefikHealthResponseDTO.class)
-				.map(res -> SampleResponseDTO.builder().status("ok").message(res.uptime).build());
+				.map(this::traefikToApiResponse);
 	}
 
 	@Override
@@ -26,6 +26,10 @@ public class ReactiveServiceImpl implements ReactiveService {
 		return whoamiWebClient.get().uri(path)
 				.retrieve().bodyToMono(String.class)
 				.map(body -> SampleResponseDTO.builder().status("ok").message(body).build());
+	}
+	
+	private SampleResponseDTO traefikToApiResponse(TraefikHealthResponseDTO in) {
+		return SampleResponseDTO.builder().status("ok").message(in.uptime).build();
 	}
 
 	@Override
